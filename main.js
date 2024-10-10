@@ -3,7 +3,7 @@ const game = {
     hampaita: 1000000,
     hampaitaPerSekunti: 0,
     trainers: 1,
-    randomCost: 10
+    randomCost: 10,
 };
 const fighters = {
     name: [
@@ -50,6 +50,16 @@ const fighters = {
         100,
         100,
         100
+    ],
+    xpStep: [
+        10,
+        10,
+        10
+    ],
+    progress: [
+        0,
+        0,
+        0
     ]
 };
 const elements = {
@@ -57,7 +67,7 @@ const elements = {
     hampaitaEl: document.getElementById("hampaita"),
     fighterContainer: document.getElementById("fighter-container"),
     shopButton: document.getElementById("shop-button"),
-    randomButton: document.getElementById("random-button")
+    randomButton: document.getElementById("random-button"),
 };
 function summonFighter(id) {
     const fighter = document.createElement("div");
@@ -66,37 +76,22 @@ function summonFighter(id) {
     const fighterLevel = document.createElement("div");
     const name = document.createElement("p");
     const power = document.createElement("p");
-    const barContainer = document.createElement("div");
-    const xpP = document.createElement("p");
-    const xp = document.createElement("span");
-    const progressBar = document.createElement("div");
     fighter.className = "fighter";
     img.className = "img";
     fighterInfo.className = "fighter-info";
     fighterLevel.className = "fighter-level";
     name.className = "name";
     power.className = "power";
-    barContainer.className = "bar-container";
-    xpP.className = "xp-p";
-    xp.className = "xp";
-    progressBar.className = "progress-bar";
     elements.fighterContainer.appendChild(fighter);
     fighter.appendChild(img);
     fighter.appendChild(fighterInfo);
     fighter.appendChild(fighterLevel);
     fighterInfo.appendChild(name);
     fighterInfo.appendChild(power);
-    elements.fighterContainer.appendChild(barContainer);
-    barContainer.appendChild(xpP);
-    barContainer.appendChild(progressBar);
-    xpP.appendChild(xp);
     img.src = fighters.img[id];
     name.innerText = fighters.name[id];
     power.innerText = `Power: ${fighters.power[id]}`;
     fighterLevel.innerText = fighters.level[id].toLocaleString();
-    xpP.innerText = "xp: ";
-    xp.innerText = `${fighters.currentXp[id]} / ${fighters.maxXp[id]}`;
-    progressBar.style.width = `${(fighters.currentXp[id] / fighters.maxXp[id]) * 100}%`;
 }
 function randomFighter() {
     const randomFighter = Math.floor(Math.random() * fighters.id.length);
@@ -107,7 +102,6 @@ function randomFighter() {
         summonFighter(randomFighter);
         fighters.isPurchased[fighters.id[randomFighter]] = true;
     }
-    console.log(fighters.isPurchased[fighters.id[randomFighter]]);
 }
 if (elements.shopEl) {
     elements.shopButton.addEventListener("click", () => {
